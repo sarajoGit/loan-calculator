@@ -4,8 +4,7 @@ import com.example.loancalculator.dto.LoanCalculationDTO;
 import com.example.loancalculator.dto.LoanDetailsDTO;
 import com.example.loancalculator.dto.PaymentSchedule;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class LoanCalculatorApplicationTests {
 
     private final String uri = "/api/v1/loans";
@@ -46,6 +46,7 @@ class LoanCalculatorApplicationTests {
     }
 
     @Test
+    @Order(1)
     public void testMonthlyPayments() throws Exception {
         LoanDetailsDTO request = new LoanDetailsDTO(amount, annualInterestRate, months);
         String requestBody = objectMapper.writeValueAsString(request);
